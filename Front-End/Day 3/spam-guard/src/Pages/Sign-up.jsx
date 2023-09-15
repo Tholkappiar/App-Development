@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Assets/CSS/Login.css';
 
-import logo from '../Assets/images/mountains/bird-white.png';
+import logo from '../Assets/images/mountain and bird/bird-white.png';
 
 function SignUp() {
   return (
