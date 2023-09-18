@@ -1,58 +1,43 @@
 import React, { useState } from 'react';
-import '../Assets/CSS/Login.css';
+import '../Assets/CSS/Login.css'
 import logo from '../Assets/images/mountain and bird/bird-white.png';
+function Example() {
 
-function Login() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  // Regex
+  const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-  const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  // usestate 
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [emailValid,setEmailvalid] = useState(true)
+  const [passwordValid,setPasswordvalid] = useState(true)
 
-    // Clear the error message when the user starts typing in the respective field
-    if (errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: '',
-      });
-    }
-  };
 
-  const handleSubmit = (e) => {
+  const handleOnEmail = (e) => {
+    setEmail(e.target.value)
+  }
+  const handleOnPassword = (e) => {
+    setPassword(e.target.value)
+  }
+  const handleOnSubmit = (e) => {
     e.preventDefault();
-    // Validation logic
-    const newErrors = {};
+    checkEmail()
+    checkPassword()
 
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/i.test(formData.email)) {
-      newErrors.email = 'Invalid email address';
-    }
-
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters long';
-    }
-
-    if (Object.keys(newErrors).length === 0) {
-      // Form is valid
-      console.log('Form is valid');
-    } else {
-      setErrors(newErrors);
-    }
-  };
+    console.log(`${email} ${password}`)
+  }
+  const checkEmail = () => {
+      setEmailvalid(emailRegex.test(email))
+  }
+  const checkPassword = () => {
+    setPasswordvalid(passwordRegex.test(password))
+  }
 
   return (
     <>
+  
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -66,7 +51,7 @@ function Login() {
         </div>
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={handleOnSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -75,21 +60,31 @@ function Login() {
                 <input
                   id="email"
                   name="email"
-                  type="email"
                   autoComplete="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.email ? 'border-red-500' : ''}`}
+                  value={email}
+                  onChange={handleOnEmail}
+                 
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                {errors.email && <p className="mt-1 text-red-500 text-sm">{errors.email}</p>}
               </div>
+              {!emailValid?<span style={{ color: 'red' }}>Invalid Email</span>:""}
+              
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" id="password" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="password"  className="block text-sm font-medium leading-6 text-gray-900 ">
                   Password
                 </label>
+
+                {/* forget password */}
+
+                {/* <div className="text-sm">
+                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                    Forgot password?
+                  </a>
+                </div> */}
+
               </div>
               <div className="mt-2">
                 <input
@@ -97,12 +92,12 @@ function Login() {
                   name="password"
                   type="password"
                   autoComplete="current-password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.password ? 'border-red-500' : ''}`}
+                  value={password}
+                  onChange={handleOnPassword}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                {errors.password && <p className="mt-1 text-red-500 text-sm">{errors.password}</p>}
               </div>
+              {!passwordValid?<span style={{ color: 'red' }}>Invalid Password</span>:""}
             </div>
 
             <div>
@@ -124,7 +119,6 @@ function Login() {
         </div>
       </div>
     </>
-  );
+  )
 }
-
-export default Login;
+export default Example;
