@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../Assets/CSS/Login.css'
 import logo from '../Assets/images/mountain and bird/bird-white.png';
 import { useNavigate } from 'react-router-dom';
-function Example() {
+function Login() {
 
   // Regex
   const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
@@ -127,4 +127,4 @@ function Example() {
     </>
   )
 }
-export default Example;
+export default Login;
