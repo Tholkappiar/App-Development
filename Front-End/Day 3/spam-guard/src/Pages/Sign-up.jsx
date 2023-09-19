@@ -1,58 +1,49 @@
 import React, { useState } from 'react';
 import '../Assets/CSS/Login.css';
 import logo from '../Assets/images/mountain and bird/bird-white.png';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+ // Regex
+ const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-  const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+ // usestate 
+ const [email,setEmail] = useState("");
+ const [password,setPassword] = useState("");
+ const [name,setName] = useState("");
+ const [emailValid,setEmailvalid] = useState(true)
+ const [passwordValid,setPasswordvalid] = useState(true)
 
-    // Clear the error message when the user starts typing in the respective field
-    if (errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: '',
-      });
-    }
-  };
+ let Nav = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Validation logic
-    const newErrors = {};
-
-    if (!formData.name) {
-      newErrors.name = 'Full Name is required';
-    }
-
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
-      newErrors.email = 'Invalid email address';
-    }
-
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    }
-
-    if (Object.keys(newErrors).length === 0) {
-      console.log('Form is valid');
-    } else {
-      setErrors(newErrors);
-    }
-  };
-
+ const handleOnEmail = (e) => {
+   setEmail(e.target.value)
+ }
+ const handleOnPassword = (e) => {
+   setPassword(e.target.value)
+ }
+ const handleOnName = (e) => {
+   setName(e.target.value)
+ }
+ const handleOnSubmit = (e) => {
+   e.preventDefault();
+   checkEmail()
+   checkPassword()
+   if(emailValid ===true && passwordValid === true && email !== "" && password !== ""){
+     Nav("/signup")
+     console.log("sign up done ")
+   }
+ 
+   console.log(`${email} ${password}`)
+ }
+ const checkEmail = () => {
+   setEmailvalid(emailRegex.test(email))
+ }
+ const checkPassword = () => {
+   setPasswordvalid(passwordRegex.test(password))
+ }
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -68,7 +59,7 @@ function SignUp() {
         </div>
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={handleOnSubmit}>
             <div>
               <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                 Full Name
@@ -79,11 +70,10 @@ function SignUp() {
                   name="name"
                   type="text"
                   autoComplete="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.name ? 'border-red-500' : ''}`}
+                  value={name}
+                  onChange={handleOnName}
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 }`}
                 />
-                {errors.name && <p className="mt-1 text-red-500 text-sm">{errors.name}</p>}
               </div>
             </div>
 
@@ -97,12 +87,12 @@ function SignUp() {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.email ? 'border-red-500' : ''}`}
+                  value={email}
+                  onChange={handleOnEmail}
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 }`}
                 />
-                {errors.email && <p className="mt-1 text-red-500 text-sm">{errors.email}</p>}
               </div>
+              {!emailValid?<span style={{ color: 'red' }}>Invalid Email</span>:""}
             </div>
 
             <div>
@@ -115,12 +105,12 @@ function SignUp() {
                   name="password"
                   type="password"
                   autoComplete="new-password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.password ? 'border-red-500' : ''}`}
+                  value={password}
+                  onChange={handleOnPassword}
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
                 />
-                {errors.password && <p className="mt-1 text-red-500 text-sm">{errors.password}</p>}
               </div>
+              {!passwordValid?<span style={{ color: 'red' }}>Invalid Password</span>:""}
             </div>
 
             <div>
