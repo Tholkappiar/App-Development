@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../Assets/CSS/Login.css'
 import logo from '../Assets/images/mountain and bird/bird-white.png';
+import { useNavigate } from 'react-router-dom';
 function Example() {
 
   // Regex
@@ -14,6 +15,7 @@ function Example() {
   const [emailValid,setEmailvalid] = useState(true)
   const [passwordValid,setPasswordvalid] = useState(true)
 
+  let Nav = useNavigate();
 
   const handleOnEmail = (e) => {
     setEmail(e.target.value)
@@ -25,11 +27,15 @@ function Example() {
     e.preventDefault();
     checkEmail()
     checkPassword()
-
+    if(emailValid ===true && passwordValid === true && email !== "" && password !== ""){
+      Nav("/signup")
+      console.log("sign up done ")
+    }
+  
     console.log(`${email} ${password}`)
   }
   const checkEmail = () => {
-      setEmailvalid(emailRegex.test(email))
+    setEmailvalid(emailRegex.test(email))
   }
   const checkPassword = () => {
     setPasswordvalid(passwordRegex.test(password))
