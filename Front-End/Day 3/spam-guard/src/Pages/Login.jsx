@@ -139,7 +139,7 @@ function Login() {
 
           <p className="mt-5 text-center text-sm text-black-500">
             Not yet Registered?{' '}
-            <a href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <a href="/sign-up" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Sign up
             </a>
           </p>

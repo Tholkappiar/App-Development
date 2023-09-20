@@ -15,6 +15,7 @@ function SignUp() {
  const [name,setName] = useState("");
  const [emailValid,setEmailvalid] = useState(true)
  const [passwordValid,setPasswordvalid] = useState(true)
+ const [nameValid, setNameValid] = useState(true);
 
  let Nav = useNavigate();
 
@@ -31,10 +32,11 @@ function SignUp() {
    e.preventDefault();
    checkEmail()
    checkPassword()
-   if(emailValid ===true && passwordValid === true && email !== "" && password !== ""){
-     Nav("/signup")
-     console.log("sign up done ")
-   }
+   setNameValid(name.trim() !== "");
+    if (emailValid === true && passwordValid === true && email !== "" && password !== "" && nameValid) {
+      Nav("/login");
+      console.log("sign up done ");
+    }
  
    console.log(`${email} ${password}`)
  }
@@ -44,6 +46,7 @@ function SignUp() {
  const checkPassword = () => {
    setPasswordvalid(passwordRegex.test(password))
  }
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -75,6 +78,7 @@ function SignUp() {
                   className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 }`}
                 />
               </div>
+              {!nameValid ? <span style={{ color: 'red' }}>Enter Name</span> : ""}
             </div>
 
             <div>
@@ -125,7 +129,7 @@ function SignUp() {
 
           <p className="mt-5 text-center text-sm text-gray-500">
             Already have an account?{' '}
-            <a href="/" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <a href="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Sign in here
             </a>
           </p>
