@@ -1,20 +1,25 @@
-import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import logo from '../Assets/images/mountain and bird/bird-black.png'
+import { useState } from 'react';
+import { Dialog } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import logo from '../Assets/images/mountain and bird/bird-black.png';
 
 const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-]
+  { name: 'Product', href: '/#product' },
+  { name: 'Impact', href: '/#impact' },
+  { name: 'Stats', href: '/#stats' },
+  { name: 'Spam-Free', href: '/#spam-free' },
+];
 
 export default function Hero() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Function to close the mobile menu
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white" id='product'>
       <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
@@ -39,7 +44,11 @@ export default function Hero() {
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
                 {item.name}
               </a>
             ))}
@@ -79,6 +88,7 @@ export default function Hero() {
                       key={item.name}
                       href={item.href}
                       className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                      onClick={closeMobileMenu} // Close the mobile menu when an option is clicked
                     >
                       {item.name}
                     </a>
@@ -88,6 +98,7 @@ export default function Hero() {
                   <a
                     href="/login"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    onClick={closeMobileMenu} // Close the mobile menu when the "Log in" option is clicked
                   >
                     Log in
                   </a>
@@ -126,8 +137,8 @@ export default function Hero() {
               Elevate Your Inbox: Say Goodbye to Spam
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-            Tired of sifting through unwanted emails? 
-            Our advanced technology ensures your inbox is free from spam, allowing you to focus on what truly matters
+              Tired of sifting through unwanted emails? 
+              Our advanced technology ensures your inbox is free from spam, allowing you to focus on what truly matters
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
@@ -156,5 +167,5 @@ export default function Hero() {
         </div>
       </div>
     </div>
-  )
+  );
 }
