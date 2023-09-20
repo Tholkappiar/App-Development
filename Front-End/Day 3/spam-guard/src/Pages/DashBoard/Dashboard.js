@@ -18,6 +18,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { mainListItems, secondaryListItems } from './listItems';
+import { useNavigate } from 'react-router-dom';
+import {logout} from "../Redux/UserSlice"
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../Redux/UserSlice';
+import {useEffect} from 'react';
+
 
 function Copyright(props) {
   return (
@@ -78,7 +85,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
@@ -87,6 +93,23 @@ export default function Dashboard() {
     setOpen(!open);
   };
 
+
+  const user = useSelector(selectUser)
+  const Nav = useNavigate();
+  const Dispatch = useDispatch();
+
+  useEffect(() => {
+    if (user) {
+      Nav("/dash");
+    } else {
+      Nav("/");
+    }
+  }, [user]);
+
+  const logOut = () =>{
+    Dispatch(logout());
+  }
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -94,7 +117,7 @@ export default function Dashboard() {
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '24px', 
             }}
           >
             <IconButton
@@ -118,7 +141,7 @@ export default function Dashboard() {
             >
               Dashboard
             </Typography>
-            <IconButton color="inherit">
+            <IconButton color="inherit" onClick={()=>logOut()}>
               <Badge color="secondary">
                 <LogoutIcon />
               </Badge>
