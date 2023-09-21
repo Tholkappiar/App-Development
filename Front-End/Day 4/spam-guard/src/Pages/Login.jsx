@@ -1,29 +1,20 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState } from 'react';
 import '../Assets/CSS/Login.css'
 import logo from '../Assets/images/mountain and bird/bird-white.png';
 import { useNavigate } from 'react-router-dom';
-import {login} from "../Pages/Redux/UserSlice"
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { selectUser } from './Redux/UserSlice';
-
 function Login() {
 
   // Regex
   const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-  //dispatch
-  const Dispatch = useDispatch();
-  const user = useSelector(selectUser)
 
   // usestate 
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [emailValid,setEmailvalid] = useState(true)
   const [passwordValid,setPasswordvalid] = useState(true)
-  
-  // to Navigate
+
   let Nav = useNavigate();
 
   const handleOnEmail = (e) => {
@@ -32,28 +23,16 @@ function Login() {
   const handleOnPassword = (e) => {
     setPassword(e.target.value)
   }
-  useEffect(() => {
-    if (user) {
-      Nav("/dash");
-    } else {
-      console.log("Not logged in");
-    }
-  }, [user]);
-
   const handleOnSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     checkEmail()
     checkPassword()
     if(emailValid ===true && passwordValid === true && email !== "" && password !== ""){
-      Dispatch(
-        login({
-        email:email,
-        password:password,
-        loggedIn:true
-      })
-      )
-      console.log("sign in done ")
+      Nav("/signup")
+      console.log("sign up done ")
     }
+  
+    console.log(`${email} ${password}`)
   }
   const checkEmail = () => {
     setEmailvalid(emailRegex.test(email))
@@ -139,7 +118,7 @@ function Login() {
 
           <p className="mt-5 text-center text-sm text-black-500">
             Not yet Registered?{' '}
-            <a href="/sign-up" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <a href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Sign up
             </a>
           </p>
