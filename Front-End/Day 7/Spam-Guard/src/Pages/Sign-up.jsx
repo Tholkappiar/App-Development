@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import '../Assets/CSS/Login.css';
-import logo from '../Assets/images/mountain and bird/bird-white.png';
+import logo from '../Assets/images/mountain and bird/bird-black.png';
 import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
  // Regex
  const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
- const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+ const passwordRegex = /^.{8,}$/;
 
 
  // usestate 
  const [email,setEmail] = useState("");
  const [password,setPassword] = useState("");
  const [name,setName] = useState("");
- const [emailValid,setEmailvalid] = useState(true)
- const [passwordValid,setPasswordvalid] = useState(true)
+ const [emailValid,setEmailvalid] = useState(false)
+ const [passwordValid,setPasswordvalid] = useState(false)
  const [nameValid, setNameValid] = useState(true);
+ let [flag,setFlag] = useState(false);
 
  let Nav = useNavigate();
 
@@ -29,6 +30,7 @@ function SignUp() {
    setName(e.target.value)
  }
  const handleOnSubmit = (e) => {
+   setFlag(true)
    e.preventDefault();
    checkEmail()
    checkPassword()
@@ -96,7 +98,7 @@ function SignUp() {
                   className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 }`}
                 />
               </div>
-              {!emailValid?<span style={{ color: 'red' }}>Invalid Email</span>:""}
+              {!emailValid && flag !== false ? <span style={{ color: 'red' }}>Invalid Email</span>:""}
             </div>
 
             <div>
@@ -114,7 +116,7 @@ function SignUp() {
                   className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
                 />
               </div>
-              {!passwordValid?<span style={{ color: 'red' }}>Invalid Password</span>:""}
+              {!passwordValid && flag !== false ? <span style={{ color: 'red' }}>Invalid Password</span>:""}
             </div>
 
             <div>
