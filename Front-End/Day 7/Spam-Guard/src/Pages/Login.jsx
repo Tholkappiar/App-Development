@@ -1,80 +1,96 @@
-import React, { useState , useEffect } from 'react';
-import '../Assets/CSS/Login.css'
+import React, { useState, useEffect } from 'react';
+import '../Assets/CSS/Login.css';
 import logo from '../Assets/images/mountain and bird/bird-black.png';
 import { useNavigate } from 'react-router-dom';
-import {login} from "../Redux/UserSlice"
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../Redux/UserSlice';
 
 function Login() {
-
   // Regex
   const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
   const passwordRegex = /^.{8,}$/;
 
-  //dispatch
-  const Dispatch = useDispatch();
-  const user = useSelector(selectUser)
+  // useState
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [flag, setFlag] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // New state for tracking login status
 
-  // usestate 
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
-  const [emailValid,setEmailvalid] = useState(false)
-  const [passwordValid,setPasswordvalid] = useState(false)
-  let [flag,setFlag] = useState(false);
-  
   // to Navigate
-  let Nav = useNavigate();
+  const Nav = useNavigate();
 
   const handleOnEmail = (e) => {
-    setEmail(e.target.value)
-  }
+    setEmail(e.target.value);
+  };
+
   const handleOnPassword = (e) => {
-    setPassword(e.target.value)
-  }
-  useEffect(() => {
-    if (user) {
-      Nav("/dash");
-    } else {
-      console.log("Not logged in");
-    }
-  }, [user]);
+    setPassword(e.target.value);
+  };
+
+  const checkEmail = () => {
+    setEmailValid(emailRegex.test(email));
+  };
+
+  const checkPassword = () => {
+    setPasswordValid(passwordRegex.test(password));
+  };
 
   const handleOnSubmit = (e) => {
-    setFlag(true)
-    e.preventDefault()
-    checkEmail()
-    checkPassword()
-    if(emailValid === true && passwordValid === true && email.trim !== "" && password.trim !== ""){
-      Dispatch(
-        login({
-        email:email,
-        password:password,
-        loggedIn:true
-      })
-      )
-      console.log("sign in done ")
+    e.preventDefault();
+    setFlag(true);
+    checkEmail();
+    checkPassword();
+
+    if (emailValid === true && passwordValid === true && email.trim() !== '' && password.trim() !== '') {
+      // Perform your authentication logic here, e.g., checking credentials on the server.
+      const isAuthenticated = true;
+
+      if (isAuthenticated) {
+        // Store login status in local storage and state.
+        localStorage.setItem('isLoggedIn', 'true');
+        setIsLoggedIn(true);
+
+        // Store credentials in local storage.
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password);
+        
+      } else {
+        // Handle invalid login.
+        console.log('Invalid login');
+      }
     }
-  }
-  const checkEmail = () => {
-    setEmailvalid(emailRegex.test(email))
-    
-  }
-  const checkPassword = () => {
-    setPasswordvalid(passwordRegex.test(password))
-  }
+    // Check if the localStorage contains the username and password
+      if (localStorage.getItem('email') && localStorage.getItem('password')) {
+        console.log('yes')
+        Nav('/dash');
+      }
+
+  };
+
+  useEffect(() => {
+    // Check for stored credentials in local storage.
+    const storedEmail = localStorage.getItem('email');
+    const storedPassword = localStorage.getItem('password');
+    const storedLoginStatus = localStorage.getItem('isLoggedIn');
+
+    if (storedEmail && storedPassword && storedLoginStatus === 'true') {
+      // Auto-fill the email and password fields.
+      setEmail(storedEmail);
+      setPassword(storedPassword);
+
+      // Update the state to indicate that the user is logged in.
+      setIsLoggedIn(true);
+
+      // Redirect the user to the dashboard.
+      Nav('/dash');
+    }
+  }, []);
 
   return (
     <>
-  
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-40 w-auto"
-            src={logo}
-            alt="spam-shield"
-          />
+          <img className="mx-auto h-40 w-auto" src={logo} alt="spam-shield" />
           <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
@@ -93,28 +109,17 @@ function Login() {
                   autoComplete="email"
                   value={email}
                   onChange={handleOnEmail}
-                 
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-              {!emailValid && flag !== false ? <span style={{ color: 'red' }}>Invalid Email</span>:""}
-              
+              {!emailValid && flag !== false ? <span style={{ color: 'red' }}>Invalid Email</span> : ''}
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password"  className="block text-sm font-medium leading-6 text-gray-900 ">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                   Password
                 </label>
-
-                {/* forget password */}
-
-                {/* <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </a>
-                </div> */}
-
               </div>
               <div className="mt-2">
                 <input
@@ -127,7 +132,7 @@ function Login() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-              {!passwordValid && flag !== false ?<span style={{ color: 'red' }}>Invalid Password</span>:""}
+              {!passwordValid && flag !== false ? <span style={{ color: 'red' }}>Invalid Password</span> : ''}
             </div>
 
             <div>
@@ -149,6 +154,7 @@ function Login() {
         </div>
       </div>
     </>
-  )
+  );
 }
+
 export default Login;

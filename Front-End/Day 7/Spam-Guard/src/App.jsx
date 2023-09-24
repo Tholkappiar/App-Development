@@ -9,6 +9,7 @@ import Hero from './Components/Hero';
 import Stats from './Components/Stats';
 import Header from './Components/Header';
 import CTA from './Components/CTA';
+import AdminLogin from './Pages/Admin Dashboard/AdminLogin';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/dash" element={<DashBoard />} />
-          <Route path="/admin/*" element={<AdminDash />} />
+          <Route path="/admin*" element={<AdminDash />} />
+          <Route path="/adminLogin" element={<AdminLogin />} />
 
           <Route path="/#product" element={<Hero />} />
           <Route path="/#impact" element={<Header />} />

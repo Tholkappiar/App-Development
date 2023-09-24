@@ -100,16 +100,19 @@ export default function Dashboard() {
   const Nav = useNavigate();
   const Dispatch = useDispatch();
 
-  useEffect(() => {
-    if (user) {
-      Nav("/dash");
-    } else {
-      Nav("/");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (localsto) {
+  //     Nav("/dash");
+  //   } else {
+  //     Nav("/");
+  //   }
+  // }, [user]);
 
   const logOut = () =>{
-    Dispatch(logout());
+    localStorage.removeItem('isLoggedIn'); // Remove login status on logout
+    localStorage.removeItem('email'); // Remove email status on logout
+    localStorage.removeItem('password'); // Remove password status on logout
+    Nav("/");
   }
   
   return (

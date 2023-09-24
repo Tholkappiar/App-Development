@@ -6,6 +6,8 @@ import {
   FaInstagram,
   FaTwitterSquare,
 } from 'react-icons/fa';
+import Popup from 'reactjs-popup';
+import './Popup.css'
 
 const Footer = () => {
   return (
@@ -58,7 +60,43 @@ const Footer = () => {
             <ul>
               <li className='py-2 text-sm'>Claim</li>
               <li className='py-2 text-sm'>Policy</li>
-              <li className='py-2 text-sm'>Terms</li>
+              
+              <Popup
+    trigger={<button className="text-sm"> Terms </button>}
+    modal
+    nested
+  >
+    {close => (
+      <div className="modal">
+        <button className="close" onClick={close}>
+          &times;
+        </button>
+        <div className="header"> TERMS </div>
+        <div className="content">
+          {' '}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
+          Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
+          delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
+          <br />
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
+          commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
+          explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
+        </div>
+        <div className="actions">
+          <button
+            className="button"
+            onClick={() => {
+              console.log('modal closed ');
+              close();
+            }}
+          >
+            CLOSE
+          </button>
+        </div>
+      </div>
+    )}
+  </Popup>
+              
             </ul>
           </div>
         </div>
