@@ -10,6 +10,8 @@ import Stats from './Components/Stats';
 import Header from './Components/Header';
 import CTA from './Components/CTA';
 import AdminLogin from './Pages/Admin Dashboard/AdminLogin';
+import Page_404 from './Pages/Page_404';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -21,16 +23,17 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/dash" element={<DashBoard />} />
-          <Route path="/admin*" element={<AdminDash />} />
+          <Route path="/admin/*" element={<AdminDash />} />
           <Route path="/adminLogin" element={<AdminLogin />} />
 
           <Route path="/#product" element={<Hero />} />
           <Route path="/#impact" element={<Header />} />
           <Route path="/#stats" element={<Stats />} />
           <Route path="/#spam-free" element={<CTA />} />
+          <Route path="*" element={<Page_404/>} />
         </Routes>
       </BrowserRouter>
-      {/* <AdminDash/> */}
+      
     </>
   );
 }

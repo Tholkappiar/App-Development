@@ -62,7 +62,7 @@ function AdminLogin() {
     // Check if the localStorage contains the username and password
       if (localStorage.getItem('email') && localStorage.getItem('password')) {
         console.log('yes')
-        Nav('/dash');
+        Nav('/admin');
       }
 
   };
@@ -82,7 +82,7 @@ function AdminLogin() {
       setIsLoggedIn(true);
 
       // Redirect the user to the dashboard.
-      Nav('/admin');
+      // Nav('/admin');
     }
   }, []);
 
