@@ -8,35 +8,50 @@ import LayersIcon from '@mui/icons-material/Layers';
 import { AccountCircle, Warning } from '@mui/icons-material';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
+import { useNavigate } from 'react-router-dom';
 
-export const mainListItems = (
-  <React.Fragment>
-    <ListItemButton>
-      <ListItemIcon>
-        <AccountCircle />
-      </ListItemIcon>
-      <ListItemText primary="My Account" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <Warning />
-      </ListItemIcon>
-      <ListItemText primary="Spam and Safe Count" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="FeedBack" />
-    </ListItemButton>
-  </React.Fragment>
-);
+// Functional component for list items
+const ListItems = () => {
+  const Nav = useNavigate();
+
+  const navigateTospamDummy = () => {
+    Nav('/spamdummy');
+  };
+  const navigateToReportDummy = () =>{
+    Nav("/reportdummy")
+  }
+
+  return (
+    <React.Fragment>
+      <ListItemButton >
+        <ListItemIcon>
+          <AccountCircle />
+        </ListItemIcon>
+        <ListItemText primary="My Account" />
+      </ListItemButton>
+      <ListItemButton onClick={navigateTospamDummy}>
+        <ListItemIcon>
+          <Warning />
+        </ListItemIcon>
+        <ListItemText primary="Spam and Safe Count" />
+      </ListItemButton>
+      <ListItemButton onClick={navigateToReportDummy}>
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Reports" />
+      </ListItemButton>
+      {/* <ListItemButton>
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary="FeedBack" />
+      </ListItemButton> */}
+    </React.Fragment>
+  );
+};
+
+export const mainListItems = <ListItems />;
 
 export const secondaryListItems = (
   <React.Fragment>

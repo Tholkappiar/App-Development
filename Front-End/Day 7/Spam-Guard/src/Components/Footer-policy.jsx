@@ -2,7 +2,7 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-export default function Footer_Terms() {
+export default function Footer_Policy() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -15,7 +15,7 @@ export default function Footer_Terms() {
         style={{ cursor: 'pointer' }}
         onClick={handleOpen}
       >
-        Terms of Service
+        Policy
       </Typography>
       <Modal
         open={open}
@@ -25,14 +25,14 @@ export default function Footer_Terms() {
       >
         <div className="bg-white dark:bg-gray-800 w-96 mx-auto mt-20 p-6 rounded-lg shadow-lg">
           <Typography id="modal-modal-title" variant="h6" component="h2" className="text-black dark:text-white">
-            Terms of Service
+            Policy
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }} className="text-black dark:text-white">
-            By using our services, you agree to our Terms of Service. These terms may be updated from time to time, and it is your responsibility to review them. If you do not agree with any of these terms, please do not use our services.
+          The Spam Filter App is designed to prevent and filter out spam, unsolicited messages, and unwanted content.
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }} className="text-black dark:text-white">
-            <p>You are responsible for safeguarding the password that you use to access the Service and for any activities or actions under your password, whether your password is with our Service or a third-party service.</p>
-            <p>You agree not to disclose your password to any third party. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.</p>
+            <p>Users must use the Spam Filter App for legitimate purposes only and in compliance with all applicable laws and regulations.</p>
+            <p>The Spam Filter App may not be used for any illegal, harmful, or malicious activities, including but not limited to phishing, identity theft, or sending harmful code or malware.</p>
           </Typography>
         </div>
       </Modal>

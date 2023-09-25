@@ -11,7 +11,11 @@ import Header from './Components/Header';
 import CTA from './Components/CTA';
 import AdminLogin from './Pages/Admin Dashboard/AdminLogin';
 import Page_404 from './Pages/Page_404';
+import Construction from './Pages/Construction'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SpamDummy from './DashBoard/SpamDummy';
+import ReportDummy from './DashBoard/ReportDummy';
+import AdminDummyDashboard from './Pages/Admin Dashboard/AdminDummyDash';
 
 function App() {
   return (
@@ -25,6 +29,10 @@ function App() {
           <Route path="/dash" element={<DashBoard />} />
           <Route path="/admin/*" element={<AdminDash />} />
           <Route path="/adminLogin" element={<AdminLogin />} />
+          <Route path="/spamdummy" element={<SpamDummy />} />
+          <Route path="/reportdummy" element={<ReportDummy />} />
+          <Route path="/admindummyDash" element={<AdminDummyDashboard />} />
+          <Route path="/construction" element={<Construction />} />
 
           <Route path="/#product" element={<Hero />} />
           <Route path="/#impact" element={<Header />} />

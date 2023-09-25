@@ -9,8 +9,19 @@ import {
 import Popup from "reactjs-popup";
 import "./Popup.css";
 import Footer_Terms from "./Footer-Terms";
+import Footer_Policy from "./Footer-policy";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const Nav = useNavigate();
+
+  // Define the social media profile URLs
+  const facebookURL = "https://www.facebook.com/";
+  const instagramURL = "https://www.instagram.com/";
+  const twitterURL = "https://twitter.com/";
+  const githubURL = "https://github.com/";
+  const dribbbleURL = "https://dribbble.com/";
+
   return (
     <div style={{ backgroundColor: "white" }}>
       <div className="max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-900">
@@ -23,40 +34,32 @@ const Footer = () => {
             ullam iste repellat consequatur libero reiciendis, blanditiis
             accusantium.
           </p>
-          <div className="flex justify-between md:w-[75%] my-6">
-            <FaFacebookSquare size={30} color="#333" />
-            <FaInstagram size={30} color="#333" />
-            <FaTwitterSquare size={30} color="#333" />
-            <FaGithubSquare size={30} color="#333" />
-            <FaDribbbleSquare size={30} color="#333" />
-          </div>
         </div>
         <div className="lg:col-span-2 flex justify-between mt-6">
           <div>
-            <h6 className="font-medium text-gray-400">Support</h6>
+            <h6 className="font-medium text-gray-400" onClick={() => { Nav("/adminlogin") }}>Admin</h6>
             <ul>
-              <li className="py-2 text-sm">Pricing</li>
-              <li className="py-2 text-sm">Documentation</li>
-              <li className="py-2 text-sm">Guides</li>
-              <li className="py-2 text-sm">API Status</li>
+              <li className="py-2 text-sm"><Footer_Policy /></li>
+              <li><Footer_Terms /></li>
             </ul>
           </div>
-          <div>
-            <h6 className="font-medium text-gray-400">Company</h6>
-            <ul>
-              <li className="py-2 text-sm">About</li>
-              <li className="py-2 text-sm">Jobs</li>
-              <li className="py-2 text-sm">Press</li>
-              <li className="py-2 text-sm">Careers</li>
-            </ul>
-          </div>
-          <div>
-            <h6 className="font-medium text-gray-400">Legal</h6>
-            <ul>
-              <li className="py-2 text-sm">Claim</li>
-              <li className="py-2 text-sm">Policy</li>
-              <li><Footer_Terms/></li>
-            </ul>
+          <div className="flex justify-between md:w-[75%] my-6">
+            {/* Add anchor tags with href attributes for each social media icon */}
+            <a href={facebookURL} target="_blank" rel="noopener noreferrer">
+              <FaFacebookSquare size={30} color="#333" />
+            </a>
+            <a href={instagramURL} target="_blank" rel="noopener noreferrer">
+              <FaInstagram size={30} color="#333" />
+            </a>
+            <a href={twitterURL} target="_blank" rel="noopener noreferrer">
+              <FaTwitterSquare size={30} color="#333" />
+            </a>
+            <a href={githubURL} target="_blank" rel="noopener noreferrer">
+              <FaGithubSquare size={30} color="#333" />
+            </a>
+            <a href={dribbbleURL} target="_blank" rel="noopener noreferrer">
+              <FaDribbbleSquare size={30} color="#333" />
+            </a>
           </div>
         </div>
       </div>

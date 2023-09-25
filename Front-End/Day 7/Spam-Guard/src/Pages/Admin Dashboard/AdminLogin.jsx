@@ -62,7 +62,7 @@ function AdminLogin() {
     // Check if the localStorage contains the username and password
       if (localStorage.getItem('email') && localStorage.getItem('password')) {
         console.log('yes')
-        Nav('/admin');
+        Nav('/admindummyDash');
       }
 
   };

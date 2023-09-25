@@ -17,16 +17,16 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems, secondaryListItems } from '../../DashBoard/listItems';
 import { useNavigate } from 'react-router-dom';
-import {logout} from "../Redux/UserSlice"
+import {logout} from "../../Redux/UserSlice"
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../Redux/UserSlice';
+import { selectUser } from '../../Redux/UserSlice';
 import {useEffect} from 'react';
-import Chart from './Chart'
-import Deposits from './Deposits'
-import AccountDetails from './AccountDetails';
+import Chart from '../../DashBoard/Chart'
+import Deposits from '../../DashBoard/Deposits'
+import AccountDetails from '../../DashBoard/AccountDetails';
 
 
 function Copyright(props) {
@@ -90,7 +90,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function AdminDummyDashboard() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -146,7 +146,7 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Admin Dashboard
             </Typography>
             <IconButton color="inherit" onClick={()=>logOut()}>
               <Badge color="secondary">
