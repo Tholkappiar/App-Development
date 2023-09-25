@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../Assets/CSS/Login.css';
 import logo from '../Assets/images/mountain and bird/bird-black.png';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../Redux/UserSlice';
 
 function Login() {
   // Regex
@@ -15,6 +17,8 @@ function Login() {
   const [passwordValid, setPasswordValid] = useState(false);
   const [flag, setFlag] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // New state for tracking login status
+
+  const Dispatch = useDispatch();
 
   // to Navigate
   const Nav = useNavigate();
@@ -61,7 +65,8 @@ function Login() {
     }
     // Check if the localStorage contains the username and password
       if (localStorage.getItem('email') && localStorage.getItem('password')) {
-        console.log('yes')
+        // After storing email and password in local storage, dispatch the login action
+        Dispatch(login({ email, password }));
         Nav('/dash');
       }
 

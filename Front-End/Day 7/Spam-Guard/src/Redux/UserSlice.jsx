@@ -12,9 +12,13 @@ export const userSlice = createSlice({
         },
         logout:(state)=>{
             state.user=null;
-        }
+        },
+        updatePassword: (state, action) => {
+            // Update the password in the Redux state
+            state.user.password = action.payload;
+          }
     }
 })
-export const {login , logout} = userSlice.actions;
+export const {login , logout, updatePassword } = userSlice.actions;
 export const selectUser = (state) => state.user.user;
 export default userSlice.reducer;

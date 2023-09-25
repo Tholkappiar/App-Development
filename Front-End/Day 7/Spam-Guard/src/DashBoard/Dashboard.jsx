@@ -26,6 +26,7 @@ import { selectUser } from '../Redux/UserSlice';
 import {useEffect} from 'react';
 import Chart from './Chart'
 import Deposits from './Deposits'
+import AccountDetails from './AccountDetails';
 
 
 function Copyright(props) {
@@ -112,6 +113,7 @@ export default function Dashboard() {
     localStorage.removeItem('isLoggedIn'); // Remove login status on logout
     localStorage.removeItem('email'); // Remove email status on logout
     localStorage.removeItem('password'); // Remove password status on logout
+    Dispatch(logout());
     Nav("/");
   }
   
@@ -188,6 +190,13 @@ export default function Dashboard() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
+            {/* Recent Orders */}
+            <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  {/* <Orders /> */}
+                  <AccountDetails/>
+                </Paper>
+              </Grid>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
@@ -214,13 +223,7 @@ export default function Dashboard() {
                   <Deposits />
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  {/* <Orders /> */}
-                  
-                </Paper>
-              </Grid>
+              
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
